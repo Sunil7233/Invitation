@@ -112,7 +112,7 @@ function createTear() {
     const tear = document.createElement("div");
 
     tear.classList.add("tear");
-    tear.textContent = "💧";
+    tear.textContent = "😭";
 
     tear.style.left = Math.random() * 100 + "vw";
 
