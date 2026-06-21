@@ -28,7 +28,7 @@ body{
 .date{
     min-height: 100vh;
     margin: 0;
-    background-image: url(/Assets/fond-coeur.jpg);
+    background-image: url(/fond-coeur.jpg);
     background-size: cover;
     background-position: center;
     overflow: hidden;
