@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Free Drink Pass</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+
+</head>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<body>
+
+    <div class="glow-container">
+        <div class="glow glow1"></div>
+        <div class="glow glow2"></div>
+        <div class="glow glow3"></div>
+    </div>
+
+
+    <div class="cardDate" id="screenDate">
+            <div class="title">  
+                <h1 style="text-align:center; padding-top:50px;" id="titre">💖 Un petit date à la place? 💖</h1>
+            </div>
+            <div class="buttons">
+                <button class="yes" id="yes">
+                    Bon d'accord 
+                </button>
+
+                <button class="no" id="no">
+                    Non
+                </button>
+            </div>
+    </div>
+    <div class="card" id="mainCard">
+        <div class="token">
+            PASS BOISSON #001
+        </div>
+
+        <div class="card0" id="screen0">
+            <h2> Quel est ton prénom??</h2>
+
+            <input type="text" name="name" id="name" placeholder="Prénom">
+
+            <button id="continueBtn0" class="button" style="margin-top: 15px;">Continuer</button>
+        </div>
+
+        <div class="card1" id="screen1">
+            <h1>🍻</h1>
+
+            <h2>Une boisson offerte</h2>
+
+            <p id="texteIntro">
+                Pour tes 18 ans j'ai fait ce que je fesait de mieux bricoler et programmer, j'espère que le résultat sera à la hauteur 😅😅. 
+                Et si tu veux un verre entre pote n'hésite pas à essayer le site!!! 
+            </p>
+
+            <button class="button" id="startButton">
+                Utiliser le pass
+            </button>
+
+            <div class="glass-glow"></div>
+
+            <div class="glass">
+                <div class="foam"></div>
+                <div class="beer" id="beer"></div>
+            </div>
+
+        </div>
+
+
+        <div class="card2" id="screen2">
+        <h2>📍 Choisis un lieu</h2>
+        
+        <!-- Map container -->
+        <div id="map"></div>
+        
+        <!-- Display selected coordinates -->
+        <div id="selected-coordinates">Aucun lieu sélectionné</div>
+        
+        <!-- Button to continue -->
+        <button id="continueButton" class="button" style="margin-top: 10px;">Continuer</button>
+        </div>
+
+        <div class="card-wrapper" id="screen3-wrapper">
+            <div class="card3" id="screen3">
+                <h2>Choisissez une date</h2>
+
+
+                <!-- Input pour le date picker -->
+                <input type="text" id="myDateInput" placeholder="Sélectionner une date" />
+
+                    
+                    <button id="btn3" class="button">Valider</button>
+                
+            
+            </div>
+        </div>
+        <div class="card4" id="screen4">
+            <h2>Ton numéro</h2>
+            <input type="number" name="numéro" id="numero" placeholder="+33 07 69 96 78 66"/>
+
+            <hr class="separator">
+
+            <h2 style="margin-top: 10%;">Alors ce site ?</h2>
+
+            <div class="ratings">
+                <button onclick="vote(1)" id="Avi1">⭐ Incroyable</button>
+                <button onclick="vote(2)" id="Avi2">⭐ complétement inutile</button>
+                <button onclick="vote(3)" id="Avi3">⭐ Les deux</button>
+
+            </div>
+
+            <p id="result"></p>
+
+
+            <button id="envoyerBtn" class="button" style="margin-top: 10px;">Envoyer</button>
+        </div>
+
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        emailjs.init("20OGPXpMhXsKZ65OX");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="style.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    width: auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:Inter,Arial,sans-serif;
+    background:#0f172a;
+}
+
+.normal{
+    min-height:100vh;
+    width: auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:Inter,Arial,sans-serif;
+    background:#0f172a;
+}
+.date{
+    min-height: 100vh;
+    margin: 0;
+    background-image: url(/Assets/fond-coeur.jpg);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    font-family: sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Background glow effects */
+.glow-container {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+.glow{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    animation: floatSlow 20s ease-in-out infinite;
+    will-change: transform;
+}
+
+.glow1{
+    width:500px;
+    height:500px;
+    background:#f59e0b;
+    opacity:0.18;
+    top:-150px;
+    left:-150px;
+}
+
+.glow2{
+    width:450px;
+    height:450px;
+    background:#3b82f6;
+    opacity:0.15;
+    bottom:-150px;
+    right:-150px;
+    animation-delay:-4s;
+}
+
+.glow3{
+    width:350px;
+    height:350px;
+    background:#ef4444;
+    opacity:0.12;
+    top:40%;
+    left:60%;
+    animation-delay:-8s;
+}
+
+@keyframes floatSlow {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    50% {
+        transform: translate(40px, -30px) scale(1.05);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+
+/* Main card */
+
+.card{
+    width:min(90%,700px);
+    max-height:800px;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35);
+    text-align:center;
+    color:white;
+    z-index:10;
+    margin: 0px auto;
+    animation:appear 0.8s ease;
+    transition:0.6s ease;
+}
+
+#name{
+    background-color: #fff;
+    border: 2px solid #4facfe;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 4%;
+    font-size: 1.2em;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: auto;
+}
+
+.cardDate{
+    width:min(90%,700px);
+    display: none;
+}
+
+.title {
+    width: min(90%, 700px);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.title h1 {
+    color: #8B005D;
+    text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+    font-size: 2.5rem;
+}
+
+.buttons{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+.yes,
+.no {
+    
+    border: none;
+    border-radius: 18px;
+    padding: 18px 35px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.yes {
+    position:relative;
+    background: #5ef109;
+    color: white;
+    transform: scale(1.1);
+}
+
+.yes:hover {
+    transform: scale(1.2);
+}
+
+.no {
+    position: fixed;
+    background: #EC4899;
+    color: white;
+    transition: left 0.15s ease, top 0.15s ease;
+    left: 35%;
+}
+
+.no:hover {
+    transform: scale(1.05);
+}
+
+    /* Style du cœur */
+.heart {
+        position: fixed;
+        top: -20px;
+        color: red;
+        font-size: 20px;
+        animation: fall linear forwards;
+        pointer-events: none; /* Ne bloque pas les clics */
+}
+
+.tear {
+    position: fixed;
+    top: -20px;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+    /* Animation de chute */
+@keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+}
+
+
+.card1{
+    display: none;
+}
+
+.card2{
+    display:none;
+    align-items:center;
+    gap:20px;
+    
+}
+.card2.show{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+/* glass*/
+.glass{
+    position:relative;
+    width:140px;
+    height:200px;
+    border:4px solid rgba(255,255,255,0.3);
+    border-radius:10px 10px 25px 25px;
+    overflow:hidden;
+    margin:40px auto;
+    box-shadow:0 0 30px rgba(245,158,11,0.2);
+}
+.beer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:0%;
+    background:linear-gradient(
+        to top,
+        #b45309,
+        #fbbf24,
+        #fde68a
+    );
+    
+    
+}
+.foam{
+    position:absolute;
+    top:-10px;
+    width:120%;
+    height:25px;
+    background:rgba(255,255,255,0.9);
+    border-radius:50%;
+    left:-10%;
+    opacity:0.8;
+}
+.glass-glow{
+    position:absolute;
+    inset:-20px;
+    background:radial-gradient(circle,rgba(245,158,11,0.25),transparent 60%);
+    filter:blur(20px);
+    z-index:-1;
+}
+@keyframes fill{
+    0%{height:0%;}
+    60%{height:85%;}
+    80%{height:85%;}
+    100%{height:0%;}
+}
+
+
+
+.token{
+    color:#f59e0b;
+    letter-spacing:4px;
+    font-size:0.8rem;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+p{
+    color:rgba(255,255,255,0.75);
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.button{
+    border:none;
+    padding:14px 28px;
+    border-radius:15px;
+    font-size:1rem;
+    cursor:pointer;
+    background:#f59e0b;
+    color:white;
+    transition:.25s;
+}
+
+.button:hover{
+    transform:translateY(-2px);
+}
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px; /* rounded corners for map */
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+
+
+
+.card3{
+    display: none;
+}
+
+.card3-wrapper{
+    transition: transform 0.5s ease;
+}
+
+
+/* Style personnalisé pour Flatpickr */
+.flatpickr-input {
+      background-color: #fff;
+      border: 2px solid #4facfe;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 2%;
+      font-size: 1.2em;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: auto;
+}
+
+.flatpickr-input:focus {
+      border-color: #00f2fe;
+      box-shadow: 0 0 10px #00f2fe;
+      outline: none;
+}
+
+    /* Style du calendrier */
+.flatpickr-calendar {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      border: none;
+      font-family: 'Arial', sans-serif;
+}
+
+
+
+    /* En-tête du mois */
+.flatpickr-months {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #00f7ff, #09a3e0, #00f7ff);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+}
+
+.buttonContainer{
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#btn3{
+    margin-top: 5%;
+}
+.card4{
+    display: none;
+}
+#numero{
+    background-color: #fff;
+      border: 2px solid #4facfe;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 4%;
+      font-size: 1.2em;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: auto;
+}
+
+.separator{
+    margin: 40px 0;
+    border: none;
+    height: 10px;
+    background-color:#f59e0b;
+    border-radius: 10px;
+}
+
+.ratings{
+    display:flex;
+    flex-direction:column;
+    margin-top: 7%;
+    gap:15px;
+    width:min(500px,90%);
+}
+
+.ratings button{
+    background-color: #fff;
+      border: 2px solid #4facfe;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-top: 2%;
+      font-size: 1.2em;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: auto;
+}
+
+
+.ratings button:hover{
+    transform:scale(1.03);
+}
+
+@media (max-width: 820px) {
+  /* Your responsive styles here */
+  .glow1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+  }
+  .glow2 {
+    width: 270px;
+    height: 270px;
+    bottom: -100px;
+    right: 20px;
+  }
+  .glow3 {
+    width: 200px;
+    height: 200px;
+    top: 40%;
+    left: 30%;
+  }
+
+  .title{
+        margin-top: -40%;
+    }
+    
+  .no {
+        top: 70%;
+  }
+
+  .flatpickr-input {
+      
+      width: 100%;
+  }
+
+  .flatpickr-calendar {
+
+        position: fixed !important;
+
+        top: 180% !important;
+        left: 50% !important;
+
+        transform: translate(-50%, -50%) !important;
+
+        z-index: 9999;
+    }
+  /* You can add other style adjustments here as needed */
+}
