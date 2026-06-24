@@ -28,7 +28,7 @@ body{
 .date{
     min-height: 100vh;
     margin: 0;
-    background-image: url("./Assets/fond-coeur.jpg");
+    background-image: url(/Assets/fond-coeur.jpg);
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -116,9 +116,13 @@ body{
     text-align:center;
     color:white;
     z-index:10;
-    margin: 0px auto;
     animation:appear 0.8s ease;
     transition:0.6s ease;
+    
+}
+
+.card0{
+    max-height: 100px;
 }
 
 #name{
@@ -184,6 +188,41 @@ body{
     transform: scale(1.2);
 }
 
+#errorScreen{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    z-index:99999;
+}
+
+#terminal{
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    font-size:1.1rem;
+    line-height:1.8;
+    white-space:pre-line;
+    max-width:800px;
+}
+
+.line{
+    opacity:0;
+    animation:appear .5s forwards;
+}
+
+
+@keyframes appear{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
 .no {
     position: fixed;
     background: #EC4899;
@@ -224,10 +263,11 @@ body{
 
 .card1{
     display: none;
+    max-height: fit-content;
 }
 
 .card2{
-    display:none;
+    visibility: hidden;
     align-items:center;
     gap:20px;
     
@@ -459,6 +499,7 @@ p{
 
 @media (max-width: 820px) {
   /* Your responsive styles here */
+  
   .glow1 {
     width: 300px;
     height: 300px;
