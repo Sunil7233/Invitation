@@ -15,7 +15,7 @@ const yesBtn = document.getElementById("yes");
 let noBtnSize = 1;
 let yesBtnSize = 1;
 
-let noCount = Math.floor(Math.random() * 4 + 5);
+let noCount = Math.floor(Math.random() * 4 + 3);
 console.log(noCount);
 
 let map;
@@ -23,11 +23,97 @@ let marker;
 let date = 0;
 
 let RDV = "non";
-let prenom;
-let numero;
-let lieuChoisi;
-let dateChoisi;
+let prenom = "";
+let numero = "";
+let lieuChoisi = "";
+let dateChoisi ="";
 let avisChoisi = "";
+
+let now;
+let expiryDate;
+
+let currentEmoji = "😭";
+
+window.addEventListener("load", () => {
+
+    const key = "firstVisitDate";
+
+    // si première visite → on enregistre la date
+    if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, new Date().toISOString());
+    }
+
+    const firstVisit = new Date(localStorage.getItem(key));
+
+    // +6 mois
+    expiryDate = new Date(firstVisit);
+    expiryDate.setMonth(expiryDate.getMonth() + 2);
+
+    now = new Date();
+
+    map = L.map('map', {
+        zoomControl: true
+    }).setView([47.2714, -2.2048], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        crossOrigin: true
+    }).addTo(map);
+
+    map.on('click', async (e) => {
+
+        if (marker) map.removeLayer(marker);
+
+        marker = L.marker(e.latlng).addTo(map);
+
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        // 🌍 Reverse geocoding (OpenStreetMap Nominatim)
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const address = data.address || {};
+
+            const rue = address.road || "";
+            const ville = address.city || address.town || address.village || "";
+            const pays = address.country || "";
+
+            const parts = [rue, ville, pays].filter(Boolean);
+
+            document.getElementById('selected-coordinates').innerText =
+                parts.join(", ");
+
+            lieuChoisi = `https://www.google.com/maps?q=${lat},${lng}`;
+
+        } catch (err) {
+            console.error("Erreur geocoding:", err);
+
+            // fallback si API fail
+            document.getElementById('selected-coordinates').innerText =
+                `Latitude: ${lat.toFixed(5)}, Longitude: ${lng.toFixed(5)}`;
+
+            lieuChoisi = `https://www.google.com/maps?q=${lat},${lng}`;
+        }
+    });
+});
+
+function openMapScreen() {
+
+    console.log("hello");
+
+    screen2.style.visibility = "visible";
+    screen2.style.display = "block";
+    screen2.style.position = "relative";
+
+    // IMPORTANT: recalcule Leaflet
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 150);
+}
 
 
 
@@ -45,36 +131,10 @@ const start = () => {
         screen1.style.transform = "translateY(-20px)";
         screen1.style.pointerEvents = "none";
 
-        screen2.style.display = "block";
-
-        setTimeout(() => {
-            screen2.classList.add("show");
-        }, 50);
+        openMapScreen();
 
     }, 3000);
 
-    // Initialize the map only once
-    if (!map) {
-        map = L.map('map').setView([47.2714, -2.2048], 10); // zoom 13 pour un bon aperçu
-
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Add click event to place marker
-        map.on('click', (e) => {
-            if (marker) {
-                map.removeLayer(marker);
-            }
-            marker = L.marker(e.latlng).addTo(map);
-
-            // Display coordinates
-            document.getElementById('selected-coordinates').innerText =
-                `Latitude: ${e.latlng.lat.toFixed(5)}, Longitude: ${e.latlng.lng.toFixed(5)}`;
-            lieuChoisi =`https://www.google.com/maps?q=${e.latlng.lat},${e.latlng.lng}`;
-        });
-    }
 };
 
 let heartInterval;
@@ -112,7 +172,7 @@ function createTear() {
     const tear = document.createElement("div");
 
     tear.classList.add("tear");
-    tear.textContent = "😭";
+    tear.textContent = currentEmoji;
 
     tear.style.left = Math.random() * 100 + "vw";
 
@@ -184,7 +244,7 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
     if (texte == "")
     {
         alert('Marque ton prénom !!!!')
-    } else if (texte == "Rose") {
+    } else if (texte == "Rose" && now <= expiryDate) {
 
         // Tempête de cœurs
         startHeartStorm();
@@ -225,6 +285,9 @@ yesBtn.onclick = () =>{
 
 noBtn.onclick = () =>{
 
+        const diffMs = expiryDate - now;
+        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
         if (noCount <= 5){
             titreDate.textContent = 'Tu es sûr ??';
         }
@@ -235,11 +298,15 @@ noBtn.onclick = () =>{
         {
             titreDate.textContent = 'Réfléchis bien....';
         }
+        if (noCount <= 2)
+        {
+            titreDate.textContent = `L'offre tient plus ${diffDays} jours 😂😂 `;
+        }
         if (noCount == 0)
         {
             RDV = "non";
 
-            titreDate.textContent = "😭 Bon... il me reste plus qu'à pleurer alors 😭";
+            titreDate.textContent = "😭 NONNNNNN 😭";
             startTears();
             stopHearts();
             setTimeout(() => {
@@ -283,6 +350,7 @@ document.getElementById('continueButton').addEventListener('click', () => {
         screen2.style.pointerEvents = "none";
 
         screen3.style.display = "block";
+
     }
 });
 
@@ -342,7 +410,8 @@ function vote(note){
                 document.getElementById("Avi1").style.backgroundColor = "#f59e0b";
                 result.innerHTML =
                     "🥳 Merci ! Je savais que ce site était incroyable 😎";
-                startHeartStorm(); // si tu veux une pluie de cœurs
+                currentEmoji = "😎"
+                startTears(); // si tu veux une pluie de cœurs
                 avisChoisi = "incroyable";
                 break;
                 
@@ -378,7 +447,7 @@ document.getElementById("envoyerBtn").addEventListener("click", () => {
             prenom: prenom,
             numero: document.getElementById("numero").value,
             lieu: lieuChoisi,
-            date: dateChoisie,
+            date: dateChoisi,
             avis: avisChoisi,
             rdv : RDV
         }
@@ -390,4 +459,69 @@ document.getElementById("envoyerBtn").addEventListener("click", () => {
         console.error(error);
         alert("Erreur d'envoi");
     });
+});
+
+document.getElementById("yes").addEventListener("click", () => {
+
+    RDV = "oui";
+
+    emailjs.send(
+        "service_98dxvvq",
+        "template_kaf3pjs",
+        {
+            prenom: prenom || "",
+            numero: 33,
+            lieu: lieuChoisi || "",
+            date: dateChoisi || "",
+            avis: avisChoisi || "",
+            rdv: RDV
+        }
+    )
+    .then(() => {
+        alert("Réponse envoyée ");
+    })
+    .catch((error) => {
+        console.error(error);
+        alert("Erreur d'envoi");
+    });
+
+
+    document.getElementById("errorScreen").style.display = "flex";
+
+    const terminal = document.getElementById("terminal");
+
+    const lines = [
+        "Erreur 503",
+        "",
+        "Réponse inattendu",
+        "",
+        "😂😂😂😂😂😂😂😂",
+        "",
+        "j'ai pas programmé la suite ici 😂 je me disais que cela vallait pas la peine 😂😂",
+        "",
+        "Je te conseille de recharger le site et d'appuyer sur non pour continuer",
+        "",
+        "Et si tu veux faire abstraction des coeurs (j'ai pas trop dossé 😂 ) tu pex mettre ton prénom sans majuscule"
+    ];
+
+    terminal.innerHTML = "";
+
+    setTimeout(() => {
+
+        lines.forEach((line, index) => {
+
+            setTimeout(() => {
+
+                const div = document.createElement("div");
+                div.classList.add("line");
+                div.textContent = line;
+
+                terminal.appendChild(div);
+
+            }, index * 1000);
+
+        });
+
+    }, 3000);
+
 });
