@@ -411,6 +411,11 @@ let choisiAvi = 0;
 
 
 document.getElementById("btn3").onclick = () =>{
+        if (!dateChoisie) {
+            alert("Tu dois choisir une date et une heure avant de continuer 😅");
+            return;
+        }
+    
 
         dateChoisie = document.getElementById("myDateInput").value;
 
