@@ -47,7 +47,7 @@ window.addEventListener("load", () => {
 
     // +6 mois
     expiryDate = new Date(firstVisit);
-    expiryDate.setMonth(expiryDate.getMonth() + 2);
+    expiryDate.setMonth(expiryDate.getMonth() + 1);
 
     now = new Date();
 
@@ -244,32 +244,55 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
     if (texte == "")
     {
         alert('Marque ton prénom !!!!')
-    } else if (texte == "Rose" && now <= expiryDate) {
+    } else if (texte == "Die Rose" ) {
 
-        // Tempête de cœurs
-        startHeartStorm();
+         RDV = "a dit non avec volonté";
 
-        // Flash rose
-        document.body.style.transition = "all 1s";
-        mainCard.style.display = "none";
+        emailjs.send(
+            "service_98dxvvq",
+            "template_kaf3pjs",
+            {
+                prenom: prenom || "",
+                numero: 33,
+                lieu: lieuChoisi || "",
+                date: dateChoisi || "",
+                avis: avisChoisi || "",
+                rdv: RDV
+            }
+        )
 
-        setTimeout(() => {
+        if (now > expiryDate){
+            alert("Bravo, c’est correct, mais cette offre a expiré.")
+            return;
+        }else{
 
-            startNormalHearts();
+            // Tempête de cœurs
+            startHeartStorm();
 
-            // Nouveau fond
-            document.body.className = 'date';
+            // Flash rose
+            document.body.style.transition = "all 1s";
+            mainCard.style.display = "none";
 
-            // Changement d'écran
+            setTimeout(() => {
 
-            screenDate.style.display = "block";
+                startNormalHearts();
 
-        }, 2500);
+                // Nouveau fond
+                document.body.className = 'date';
 
-        date = 1;
-    } else{
+                // Changement d'écran
+
+                screenDate.style.display = "block";
+
+            }, 2500);
+
+            date = 1;
+        }
+    } else if (texte == "Cléa" || texte =="Kerguelen" || texte == "Callie" || texte == "Rose" || texte == "Louise"){
         screen0.style.display = 'none';
         screen1.style.display = 'block';
+    } else{
+        alert('Accès refusé 🚫\nJe ne trouve pas ton prénom dans la base de données des personnes autorisées 😅')
     }
 });
 
@@ -284,6 +307,8 @@ yesBtn.onclick = () =>{
 
 
 noBtn.onclick = () =>{
+
+       
 
         const diffMs = expiryDate - now;
         const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
@@ -318,7 +343,7 @@ noBtn.onclick = () =>{
             screen1.style.display = 'block';
 
             }, 2500);
-            document.getElementById("texteIntro").textContent = "Bon Rose tu m'as brisé le coeur mais c'est pas grave je t'offrirai quand même un verre entre pote si l'envie t'en prends, pour ton 18 anniv. Ce site te permettra de faciliter le contacte (dans l'idée...).";
+            document.getElementById("texteIntro").textContent = "Bon pas grave su tu veux quand même faire quelque chose je ferais un petit effort c'était pour ton 18 anniv quand même 😂.";
 
             
         }
@@ -341,7 +366,7 @@ noBtn.onclick = () =>{
 // Handle continue button
 document.getElementById('continueButton').addEventListener('click', () => {
     if (!marker) {
-        alert('Veuillez sélectionner un lieu en cliquant sur la carte.');
+        alert('Tu dois choisir un lieu sur la carte avant de continuer....');
     } else {
 
         screen2.style.opacity = "0";
@@ -440,6 +465,21 @@ function vote(note){
 
 document.getElementById("envoyerBtn").addEventListener("click", () => {
 
+
+    const numero = document.getElementById("numero").value.trim();
+
+    const phoneRegex = /^[0-9]{6,15}$/;
+
+    if (!phoneRegex.test(numero)) {
+        alert("📵 Numéro invalide\nMerci d'entrer un numéro correct.");
+        return; // STOP ici
+    }
+
+    if (!prenom || !lieuChoisi || !dateChoisie || !avisChoisi) {
+        alert("⚠️ Merci de remplir toutes les étapes");
+    return;
+    }
+    
     emailjs.send(
         "service_98dxvvq",
         "template_kaf3pjs",
@@ -453,7 +493,11 @@ document.getElementById("envoyerBtn").addEventListener("click", () => {
         }
     )
     .then(() => {
-        alert("Réponse envoyée ");
+        stopTears();
+        currentEmoji = "🎉";
+        startTears();
+        alert("Envoyé avec succès 🎉 ");
+        
     })
     .catch((error) => {
         console.error(error);
@@ -477,13 +521,6 @@ document.getElementById("yes").addEventListener("click", () => {
             rdv: RDV
         }
     )
-    .then(() => {
-        alert("Réponse envoyée ");
-    })
-    .catch((error) => {
-        console.error(error);
-        alert("Erreur d'envoi");
-    });
 
 
     document.getElementById("errorScreen").style.display = "flex";
@@ -501,7 +538,7 @@ document.getElementById("yes").addEventListener("click", () => {
         "",
         "Je te conseille de recharger le site et d'appuyer sur non pour continuer",
         "",
-        "Et si tu veux faire abstraction des coeurs (j'ai pas trop dossé 😂 ) tu pex mettre ton prénom sans majuscule"
+        "Mais déjà bravo pour avoir trouvé les mots justes !!!!"
     ];
 
     terminal.innerHTML = "";
