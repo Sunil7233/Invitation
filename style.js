@@ -288,7 +288,7 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
 
             date = 1;
         }
-    } else if (texte == "Cléa" || texte =="Kerguelen" || texte == "Callie" || texte == "Rose" || texte == "Louise"){
+    } else if (texte == "Cléa" || texte =="Kerguelen" || texte == "Callie" || texte == "Rose" || texte == "Louise" || texte == "Linus){
         screen0.style.display = 'none';
         screen1.style.display = 'block';
     } else{
@@ -411,13 +411,14 @@ let choisiAvi = 0;
 
 
 document.getElementById("btn3").onclick = () =>{
+    
+
+        dateChoisie = document.getElementById("myDateInput").value;
+
         if (!dateChoisie) {
             alert("Tu dois choisir une date et une heure avant de continuer 😅");
             return;
         }
-    
-
-        dateChoisie = document.getElementById("myDateInput").value;
 
         screen3.style.display = 'none';
         screen3.style.transform = "translateY(-20px)";
