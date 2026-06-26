@@ -288,7 +288,7 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
 
             date = 1;
         }
-    } else if (texte == "Cléa" || texte =="Kerguelen" || texte == "Callie" || texte == "Rose" || texte == "Louise" || texte == "Linus){
+    } else if (texte == "Cléa" || texte =="Kerguelen" || texte == "Callie" || texte == "Rose" || texte == "Louise" || texte == "Linus"){
         screen0.style.display = 'none';
         screen1.style.display = 'block';
     } else{
