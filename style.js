@@ -325,7 +325,7 @@ noBtn.onclick = () =>{
         }
         if (noCount <= 2)
         {
-            titreDate.textContent = `L'offre tient plus ${diffDays} jours 😂😂 `;
+            titreDate.textContent = `L'offre tient plus que ${diffDays} jours 😂😂 `;
         }
         if (noCount == 0)
         {
