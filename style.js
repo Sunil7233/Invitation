@@ -255,7 +255,7 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
                 prenom: prenom || "",
                 numero: 33,
                 lieu: lieuChoisi || "",
-                date: dateChoisi || "",
+                date: dateChoisie || "",
                 avis: avisChoisi || "",
                 rdv: RDV
             }
@@ -522,7 +522,7 @@ document.getElementById("yes").addEventListener("click", () => {
             prenom: prenom || "",
             numero: 33,
             lieu: lieuChoisi || "",
-            date: dateChoisi || "",
+            date: dateChoisie || "",
             avis: avisChoisi || "",
             rdv: RDV
         }
