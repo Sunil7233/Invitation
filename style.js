@@ -493,7 +493,7 @@ document.getElementById("envoyerBtn").addEventListener("click", () => {
             prenom: prenom,
             numero: document.getElementById("numero").value,
             lieu: lieuChoisi,
-            date: dateChoisi,
+            date: dateChoisie,
             avis: avisChoisi,
             rdv : RDV
         }
