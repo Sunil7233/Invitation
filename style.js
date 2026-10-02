@@ -55,9 +55,8 @@ window.addEventListener("load", () => {
         zoomControl: true
     }).setView([47.2714, -2.2048], 10);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        crossOrigin: true
+    L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
     map.on('click', async (e) => {
@@ -255,7 +254,7 @@ document.getElementById("continueBtn0").addEventListener("click", () => {
                 prenom: prenom || "",
                 numero: 33,
                 lieu: lieuChoisi || "",
-                date: dateChoisie || "",
+                date: dateChoisi || "",
                 avis: avisChoisi || "",
                 rdv: RDV
             }
@@ -503,6 +502,7 @@ document.getElementById("envoyerBtn").addEventListener("click", () => {
         currentEmoji = "🎉";
         startTears();
         alert("Envoyé avec succès 🎉 ");
+        console.log(dateChoisie)
         
     })
     .catch((error) => {
@@ -522,7 +522,7 @@ document.getElementById("yes").addEventListener("click", () => {
             prenom: prenom || "",
             numero: 33,
             lieu: lieuChoisi || "",
-            date: dateChoisie || "",
+            date: dateChoisi || "",
             avis: avisChoisi || "",
             rdv: RDV
         }
